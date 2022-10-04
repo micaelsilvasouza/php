@@ -16,8 +16,8 @@ div{
     min-height: 500px;
     margin: auto;
     padding: 10px;
-    border: 2px solid black;
     border-radius: 10px;
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.63);
 }
 
 div > p{
@@ -29,3 +29,20 @@ div > p{
     border-radius: 10px 10px 0px 0px;
 }
 
+a{
+    display: inline-block;
+    background-color: #f1c638;
+    color: white;
+    font-size: 1.3em;
+    text-decoration: none;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.671);
+}
+
+a:hover{
+    background-color: #bb992b;
+    border: 1px solid white;
+}

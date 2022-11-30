@@ -10,7 +10,7 @@
             $this->setTipo($t);
             $this->setStatus(true);
             if($t == "CC"){
-                $this->seteSaldo(50);
+                $this->setSaldo(50);
             }else{
                 $this->saldo = 150;
             }
@@ -23,12 +23,14 @@
                 echo "<p>Conta em débito, impossivel encerrar</p>";
             }else{
                 $this->setStatus(false);
+                echo "<p>A conta de ". $this->getDono(). " foi fechada com sucesso</p>";
             }
         }
 
         public function depositar($v){
-            if($this->getStatus == true){
+            if($this->getStatus() == true){
                 $this->setSaldo($this->getSaldo() + $v);
+                echo "<p>Depositado o valor de $v na conta de ". $this->getDono(). "</p>";
             }else{
                 echo "<p>Impossivel Depositar</p>";
             }
@@ -36,9 +38,10 @@
         }
 
         public function sacar($v){
-            if($this->getStauts()){
-                if($this->getSaldo() > 0){
+            if($this->getStatus()){
+                if($this->getSaldo() >= $v){
                     $this->setSaldo($this->getSaldo() - $v);
+                    echo "<p>Saque de $v realizado na conta de ". $this->getDono(). "</p>";
                 }else{
                     echo "<p>Saldo insuficiente para saque</p>";
                 }
@@ -57,17 +60,20 @@
             if($this->getStatus()){
                 if($this->getSaldo() > $v){
                     $this->setSaldo($this->getSaldo() - $v);
+                    echo "<p>Mensalidade de $v debitada na conta de ". $this->getDono(). "</p>";
                 }else{
                     echo "<p>Saldo Insufuciente para pagar a mensalidade</p>";
                 }
             }else{
-                echo "<p>Problemas com a conta</p>"
+                echo "<p>Problemas com a conta</p>";
             }
         }
 
         public function __construct(){
             $this->setSaldo(0);
             $this->setStatus(false);
+
+            echo "<p>Conta criada com sucesso:)</p>";
         }
 
         public function getNumConta(){

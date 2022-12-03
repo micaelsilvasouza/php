@@ -10,10 +10,14 @@ class Lutador{
     private $derrotas;
     private $empates;
 
-    public function __construct($nome, $idade, $peso){
+    public function __construct($nome, $nasc, $idade, $altura,$peso, $vitorias, $derrotas, $empates){
         $this->setNome($nome);
-        $this->setIdade($idade);
+        $this->setNascionalidade($nasc);        $this->setIdade($idade);
+        $this->setAltura($altura);
         $this->setPeso($peso);
+        $this->setVitorias($vitorias);
+        $this->setDerrotas($derrotas);
+        $this->setEmpates($empates);
 
         if($peso < 69){
             $this->setCategoria("Leve");

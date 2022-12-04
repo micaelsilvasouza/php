@@ -12,26 +12,26 @@ class Lutador{
 
     public function apresentar(){
         echo "<p>---------------------------------------</p>";
-        echo "<p>Chegou a Hora o lutador " + $this->getNome();
-        echo "veio diretamente de " . $this->getNascionalidade();
-        echo "tem ". $this->getIdade . "anos e pesa".$this->getPeso() . "kg";
-        echo "<br>Ele tem " . $this->getVitorias() . "vitorias, ";
-        echo $this->getDerrotas() . " derrotas e " . $this->getEmpates() . "empates</p>";
+        echo "<p>Chegou a Hora o lutador ". $this->getNome();
+        echo " veio diretamente de " . $this->getNascionalidade();
+        echo ", tem ". $this->getIdade() . " anos e pesa ".$this->getPeso() . "kg";
+        echo "<br>Ele tem " . $this->getVitorias() . " vitorias, ";
+        echo $this->getDerrotas() . " derrotas e " . $this->getEmpates() . " empates</p>";
     }
 
     public function status(){
         echo "<p>---------------------------------------</p>";
         echo "<p>". $this->getNome(). " é um peso ". $this->getCategoria();
         echo ", ja ganhou ". $this->getVitorias(). " vezes,";
-        echo "perdeu ". $this->getDerrotas(). " vezes e empatou ". $this->getEmpates(). " vezes</p>";
+        echo " perdeu ". $this->getDerrotas(). " vezes e empatou ". $this->getEmpates(). " vezes</p>";
     }
 
     public function ganharLuta(){
         $this->setVitorias($this->getVitorias() +1);
     }
 
-    public function pederLuta(){
-        $this->setVitorias($this->getDerrotas() +1);
+    public function perderLuta(){
+        $this->setDerrotas($this->getDerrotas() +1);
     }
 
     public function empatarLuta(){
@@ -42,6 +42,7 @@ class Lutador{
     public function __construct($nome, $nascionalidade, $idade, $altura, $peso, $vitorias, $derrotas, $empates){
         $this->setNome($nome);
         $this->setNascionalidade($nascionalidade);
+        $this->setIdade($idade);
         $this->setPeso($peso);
         $this->setAltura($altura);
         $this->setVitorias($vitorias);

@@ -10,12 +10,12 @@
     <h1>Cadastrando lutadores</h1>
     <?php
         require_once "lutador.php";
+        require_once "luta.php";
         
         $l1 = new Lutador("Josnei","Reino Unido", 30, 160, 90.8, 7,5,3);
-        $l1->empatarLuta();
-        $l1->ganharLuta();
-        $l1->apresentar();
-        $l1->status();
+        $l2 = new Lutador("Jhone Bravo", "Alemanha", 20,160,90,7,5,2);
+        $l2->apresentar();
+        $lu = new Luta();
     ?>
 </body>
 </html>

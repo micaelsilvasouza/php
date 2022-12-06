@@ -1,60 +1,55 @@
 <?php
+require_once "lutador.php";
+
 class Luta{
     private $desafiante;
-    private $desfiado;
+    private $desafiado;
     private $rounds;
     private $aprovada;
 
-    public function marcarLuta($desafiante, $desfiado){
-        if($desafiante->getCategoria() == $desafiado->getCategoria()){
+    public function marcarLuta($desafiante, $desafiado){
+        if($desafiante->getCategoria() === $desafiado->getCategoria()){
             if($desafiante != $desafiado){
                 echo "<p>Luta marcada com sucesso</p>";
-                $this->setAprovada(true);
-                $this->setDesafiado($desafiado);
                 $this->setDesafiante($desafiante);
+                $this->setDesafiado($desafiado);
+                $this->setAprovada(true);
             }else{
-                echo "<p>Os participantes são o mesmo lutador, impossivel de marcar a luta</p>";
+                echo "<p>Os lutadores são a mesma pessoa</p>";
             }
         }else{
-            echo "<p>Lutadores de categorias diferentes</p>";
+            echo "<p>Lutadores de Categorias diferentes</p>";
         }
     }
 
-    public function luta(){
+    public function lutar(){
         if($this->getAprovada()){
             $this->desafiante->apresentar();
             $this->desafiado->apresentar();
-            $vencedor = rand(0, 2);
+            $vencedor = rand(0,2);
 
             switch ($vencedor) {
                 case 0:
-                    echo "<p>Empatou</p>";
-                    $this->desafiante->empatar();
-                    $this->desafiado->empatar();
+                    echo "<p>Empate!</p>";
+                    $this->desafiante->empatarLuta();
+                    $this->desafiado->empatarLuta();
                     break;
                 case 1:
-                    echo "<p>{$this->desafiado->getNome()}</p>";
+                    echo "<p>{$this->desafiado->getNome()} venceu a luta</p>";
+                    $this->desafiado->ganharLuta();
                     $this->desafiante->perderLuta();
-                    $this->desagiado->ganharLuta();
                     break;
                 case 2:
-                    echo "<p>{$this->desafiante->getNome()}</p>";
-                    $this->desafiante->ganharLuta();
+                    echo "<p>{$this->desafiante->getNome()} venceu a luta</p>";
                     $this->desafiado->perderLuta();
-                default:
-                    echo "#########ERRO##########";
+                    $this->desafiante->ganharLuta();
                     break;
             }
         }else{
-            echo "<p>Essa luta não foi aprovada</p>";
+            echo "<p>Luta não pode acontecer</p>";
         }
     }
-
-    public function __construct(){
-        $this->setRounds(5);
-        $this->setAprovada(false);
-    }
-
+    
     public function getDesafiante(){
         return $this->desafiante;
     }
@@ -72,13 +67,13 @@ class Luta{
     }
 
     public function setDesafiante($desafiante){
-        if(!($this->getAprovada)){
+        if(!($this->getAprovada())){
             $this->desafiante = $desafiante;
         }
     }
 
-    public function setDesafiado($desfiado){
-        if($this->getAprovada == false){
+    public function setDesafiado($desafiado){
+        if($this->getAprovada() == false){
             $this->desafiado = $desafiado;
         }
     }

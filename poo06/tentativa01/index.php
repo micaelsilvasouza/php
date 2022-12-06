@@ -14,8 +14,9 @@
         
         $l1 = new Lutador("Josnei","Reino Unido", 30, 160, 90.8, 7,5,3);
         $l2 = new Lutador("Jhone Bravo", "Alemanha", 20,160,90,7,5,2);
-        $l2->apresentar();
-        $lu = new Luta();
+        $lu = new Luta;
+        $lu->marcarLuta($l1, $l2);
+        $lu->lutar()
     ?>
 </body>
 </html>

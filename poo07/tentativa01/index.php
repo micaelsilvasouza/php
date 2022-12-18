@@ -15,7 +15,13 @@
         $p1 = new Pessoa("Januário", 25, "Masculino");
         $p1->fazerAniver();
 
-        $l1 = new Livro("MundoAll", "Micael Silva", 130, 65)
+        $l1 = new Livro("MundoAll", "Micael Silva", 130, 130, $p1);
+        echo $l1->detalhes();
+        $l1->fechar();
+        $l1->abrir();
+        $l1->avançarPag();
+        $l1->folhear();
+        $l1->voltarPag();
     ?>
 </body>
 </html>

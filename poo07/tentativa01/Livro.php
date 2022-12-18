@@ -1,4 +1,5 @@
 <?php
+require_once "Pessoa.php";
 class Livro{
     private $titulo;
     private $autor;
@@ -7,11 +8,68 @@ class Livro{
     private $aberto;
     private $leitor;
 
-    public function __construct($titulo, $autor, $totPag, $pagAtual){
+    public function detalhes(){
+        return "<p>O livro {$this->getTitulo()} do autor {$this->getAutor()}, possui {$this->getTotPag()} paginas ao todo, e o leitor {$this->getLeitor()->getNome()} está atualmente na pagina {$this->getPagAtual()}</p>";
+    }
+
+    public function abrir(){
+        $this->setAberto(true);
+        echo "<p>Livro Aberto</p>";
+    }
+
+    public function fechar(){
+        $this->setAberto(false);
+        echo "<p>Livro Fechado</p>";
+    }
+
+    public function folhear(){
+        if($this->getAberto()){
+            echo "<p>Folheando o livro...</p>";
+            $pag = rand(1, $this->getTotPag());
+            $this->setPagAtual($pag);
+            echo "<p>Parou na pagina {$this->getPagAtual()} para começar a ler</p>";
+        }else{
+            echo "<p>Abra o livro para poder folhea-lo</p>";
+        }
+    }
+
+    public function avançarPag(){
+        if($this->getAberto()){
+            $pag = $this->getPagAtual() + 1;
+            if($pag < $this->getTotPag()){
+                $this->setPagAtual($pag);
+                echo "<p>Avançando para a pagina {$this->getPagAtual()}</p>";
+            }else{
+                echo "<p>As paginas do livro chegaram ao fim</p>";
+            }
+        }else{
+            echo "<p>Abra o livro para poder mudar de pagina</p>";
+        }
+        
+    }
+
+    public function voltarPag(){
+        if($this->getAberto()){
+            $pag = $this->getPagAtual() - 1;
+            if($pag >= 0){
+               $this->setPagAtual($pag);
+               echo "<p>Voltando para a pagina {$this->getPagAtual()}</p>"; 
+            }else{
+                echo "<p>Está na primeira pagina, agora so pode avançar de pagina</p>";
+            }
+            
+        }else{
+            echo "<p>Abra o livro para pader mudar de pagina </p>";
+        }
+       
+    }
+
+    public function __construct($titulo, $autor, $totPag, $pagAtual, $leitor){
         $this->setTitulo($titulo);
         $this->setAutor($autor);
         $this->setTotPag($totPag);
         $this->setPagAtual($pagAtual);
+        $this->setLeitor($leitor);
     }
 
     public function getTitulo(){

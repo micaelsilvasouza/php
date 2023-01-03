@@ -8,12 +8,19 @@
 </head>
 <body>
     <h1>Polimorfismo de Sobrecarga</h1>
-    <h2>
     <?php
         require_once "Cachorro.php";
 
         $m = new Cachorro();
         $m->emitirSom();
+        $m->reagirFrase("ola");
+        $m->reagirFrase("vai apanhar");
+        $m->reagirHora(11);
+        $m->reagirHora(21);
+        $m->reagirDono(true);
+        $m->reagirDono(false);
+        $m->reagirIdadePeso(2, 12.5);
+        $m->reagirIdadePeso(17, 4.5);
     ?>
 </body>
 </html>

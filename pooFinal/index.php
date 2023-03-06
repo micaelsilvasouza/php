@@ -9,14 +9,18 @@
 <body>
     <h1>Projeto YouTube</h1>
     <pre>
-    <?phP
+    <?php
         require_once "Video.php";
+        require_once "Gafanhoto.php";
 
         $v[0] = new Video("Aula 1 de POO");
         $v[1] = new Video("Aula 12 de PHP");
         $v[2] = new Video("Aula 15 de HTML");
 
-        print_r($v)
+        $g[0] = new Gafanhoto("Jubileu", 22, "M", "Juba");
+
+        print_r($v);
+        print_r($g)
     ?>
     </pre>
 </body>

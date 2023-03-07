@@ -19,4 +19,20 @@ class Gafanhoto extends Pessoa{
     public function viuMaisUm(){
         $this->totAssistido ++;
     }
+
+    public function getLogin(){
+        return $this->login;
+    }
+
+    public function getTotAssistido(){
+        return $this->totAssistido;
+    }
+
+    public function setLogin($login){
+        $this->login = $login;
+    }
+
+    public function setTotAssistido($totAssistido){
+        $this->totAssistido = $totAssistido;
+    }
 }

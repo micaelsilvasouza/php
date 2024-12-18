@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSONP</title>
+</head>
+<body>
+    <h1>JSONP</h1>
+    <p>
+        JSONP é um método para enviar dados JSON sem se preocupar com problemas entre domínios.<br>
+        JSONP não usa o objeto.XMLHttpRequest<br>
+        JSONP usa a tag em vez disso.&lt;script&gt;<br>
+        Solicitar um arquivo de outro domínio pode causar problemas devido à diretiva entre domínios.<br>
+        Solicitar um script externo de outro domínio não tem esse problema.<br>
+        O JSONP usa essa vantagem e solicita arquivos usando a tag de script em vez do objeto XMLHttpRequest.
+    </p>
+    <p id="demo"></p>
+
+    <script>
+        function mostrarJSON(json) {
+            let demo = document.getElementById("demo")
+            demo.innerHTML += json.nome+"<br>"
+            demo.innerHTML += json.idade+"<br>"
+            demo.innerHTML += json.cidade
+        }
+    </script>
+    <script src="jsonp.php"></script>
+</body>
+</html>

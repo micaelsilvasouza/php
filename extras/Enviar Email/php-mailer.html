@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP Mailer</title>
+</head>
+<body>
+    <h1>PHP Mailer</h1>
+    <p>
+        PHPMailer é a biblioteca open-source clássica de envio de emails para PHP. É compatível com a maioria dos frameworks PHP, como Laravel e Symfony e é usado por muitos projetos open-source como WordPress. Ele também suporta várias maneiras de enviar mensagens de email, incluindo a mais confiável, envio direto para servidores SMTP, e a função PHP mail(), Sendmail e qmail.
+    </p>
+    <p>
+        Para instalar o PHPMailer, você precisará do <a href="https://getcomposer.org/" target="_blank">Composer</a>, um gerenciador de dependências para PHP, recomendado pelos criadores do PHPMailer no GitHub.
+    </p>
+    <p>
+        Uma vez instalado, adicione esta linha ao seu ficheiro composer.json:
+    </p>
+    <pre>
+        <code>"phpmailer/phpmailer": "^6.9"</code>
+    </pre>
+    <p>
+        Se você não é fã do Composer, pode baixar os ficheiros do <a href="https://github.com/PHPMailer/PHPMailer/archive/master.zip" target="_blank">PHPMailer</a> com o código-fonte manualmente e copiar o conteúdo da pasta para um diretório include_path especificado em sua configuração PHP e carregar cada ficheiro de classe manualmente, assim:
+    </p>
+    <pre>
+        <code>use PHPMailer\PHPMailer\PHPMailer;
+        use PHPMailer\PHPMailer\Exception;
+        
+        require 'path/to/PHPMailer/src/Exception.php';
+        require 'path/to/PHPMailer/src/PHPMailer.php';
+        require 'path/to/PHPMailer/src/SMTP.php';</code>
+    </pre>
+    <p>Para mais informações sobre a instalação do PHPMailer, você pode verificar o <a href="https://github.com/PHPMailer/PHPMailer#installation--loading" target="_blank">manual de instalação</a>  oficial.</p>
+    
+    <h1>Configurando PHPMailer</h1>
+    <pre>
+        <code>use PHPMailer\PHPMailer\PHPMailer;
+        use PHPMailer\PHPMailer\SMTP;
+        use PHPMailer\PHPMailer\Exception;
+        
+        require 'vendor/autoload.php'; // Ajuste o caminho conforme necessário se você não estiver usando o Composer
+        
+        $mail = new PHPMailer(true);
+        
+        
+        // Configurações do servidor
+        $mail->isSMTP();                                            // Enviar usando SMTP
+        $mail->Host       = 'smtp.exemplo.com';                     // Defina o servidor SMTP para enviar
+        $mail->SMTPAuth   = true;                                   // Habilitar autenticação SMTP
+        $mail->Username   = 'seu_email@exemplo.com';               // username SMTP
+        $mail->Password   = 'sua_senha';                        // senha SMTP
+        $mail->SMTPSecure = 'tls'; // Habilitar criptografia TLS
+        $mail->Port       = 587;                                    // Porta TCP para conectar</code>
+    </pre>
+
+    <h1>Enviando Email</h1>
+    <pre>
+        <code>// Configuração de envio
+        $mail->setFrom("remetente@email.com", "Nome do Rementente");
+        $mail->addAddress("destinatario@email.com", "Nome do Destinatario");
+        
+        // Enviar email em texto simples
+        $mail->isHTML(false); // Definir formato do email para texto simples
+        $mail->Subject = 'Email usando PHP';
+        $mail->Body = '123 TESTANDO EMAIL COM PHPMAILER';
+        
+        if($mail->send()){
+            echo "Email enviado com sucesso";
+        }else{
+            echo "Houve um erro: ". $mail->ErrorInfo;
+        }</code>
+    </pre>
+
+    <h1>Enviar HTML</h1>
+    <pre>
+        <code>$mail->isHTML(true);
+        $mail->Subject = "Email usando PHP";
+        $mail->Body = "&lt;h1>Email&lt;/h1>&lt;p>Enviando usando PHPMailer&lt;/p>";
+        $mail->AltBody = "Este é o corpo de texto altenativo";</code>
+    </pre>
+
+    <h1>Enviar Multiplos</h1>
+    <pre>
+        <code>$mail->SMTPKeepAlive = true;            // adicione isso para manter a conexão SMTP aberta após cada email enviado
+        $users = [
+            ['email' => 'max@gmail.com', 'name' => 'Max'],
+            ['email' => 'box@exemplo.com', 'name' => 'Bob']
+        ];
+        
+        foreach ($users as $user) {
+            $mail->addAddress($user['email'], $user['name']);
+            $mail->Body = "&lt;h2>Oi, {$user['name']}!&lt;/h2> &lt;p>Como está?&lt;/p>";
+            $mail->AltBody = "Oi, {$user['name']}! \n Como está?";
+            try {
+                $mail->send();
+                echo "Mensagem enviada para: ({$user['email']}) {$mail->ErrorInfo}\n";
+            } catch (Exception $e) {
+                echo "Erro do Mailer ({$user['email']}) {$mail->ErrorInfo}\n";
+            }
+            $mail->clearAddresses();
+        }
+        $mail->smtpClose();                     // fechar a conexão</code>
+    </pre>
+
+    <h1>Enviar Anexo</h1>
+    Para enviar emails com anexos, você pode:
+    <p>
+        Anexar um ficheiro do seu sistema de ficheiros
+        <br>
+        Se você optar por esta opção, certifique-se de salvar seus ficheiros no mesmo diretório do script.
+    </p>
+    <p>
+        Para anexar um ficheiro, basta especificar o caminho do ficheiro. Você também pode adicionar um nome de ficheiro, mas isso é opcional, pois o script usará o nome real do seu ficheiro:
+    </p>
+    
+    <pre>
+        <code>$mail->addAttachment('path/to/fatura1.pdf', 'fatura1.pdf');</code>
+    </pre>
+
+    <p>
+        Quando você executa este script, o PHPMailer anexa o ficheiro localizado em path/to/fatura1.pdf ao email. O segundo parâmetro, fatura1.pdf, é opcional e especifica o nome do ficheiro. Para este exemplo, usei .pdf, mas lembre-se de que você também pode adicionar outros tipos de ficheiros, como imagens (.jpg ou .png), por exemplo.
+    </p>
+
+    <pre>
+        <code>$mail->isHTML(true);
+        $mail->Subject = "Teste SMTP em PHPMailer";
+        $mail->addEmbeddedImage('path/to/ficheiro_da_imagem.jpg', 'image_cid'); // Especifique o caminho para a sua imagem e CID
+        $mail->Body = '&lt;img src="cid:image_cid"> Corpo do email em HTML'; // Use o CID como o atributo src na sua tag img
+        $mail->AltBody = 'Esta é a versão em texto simples do conteúdo do email';</code>
+    </pre>
+</body>
+</html>

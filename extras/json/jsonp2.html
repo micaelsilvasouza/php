@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSONP</title>
+</head>
+<body>
+    <h1>Função de retorno de chamada</h1>
+    <p>
+        Quando você não tem controle sobre o arquivo do servidor, como você obtém o arquivo do servidor para chamar a função correta?
+        <br>
+        Às vezes, o arquivo do servidor oferece uma função de retorno de chamada como um parâmetro:
+    </p>
+    <button type="button" onclick="criarTag()">Criar tag script</button>
+    <p id="demo"></p>
+
+    <script>
+        function criarTag() {
+            let s = document.createElement("script")
+            s.src = "jsonp2.php?func=mostrarJSON"
+            document.body.appendChild(s)
+        }
+
+
+        function mostrarJSON(json) {
+            let demo = document.getElementById("demo")
+            demo.innerHTML += "+=++=++=++=++=++=++=++=++=++=+<br>"
+            demo.innerHTML += json.nome+"<br>"
+            demo.innerHTML += json.idade+"<br>"
+            demo.innerHTML += json.cidade
+        }
+    </script>
+</body>
+</html>
